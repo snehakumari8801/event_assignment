@@ -47,8 +47,9 @@ const Register = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-300">
       <Link to="/">
-        <div className="bg-gray-500 text-center pt-2 text-white h-10 w-[200px] ">
-          Go To Dashboard
+        <div className=" bg-red-800 text-center pt-2 text-white rounded-xl h-10 
+        w-[380px] ">
+         <span>Go To Dashboard</span>
         </div>
       </Link>
       <div className="w-full max-w-sm p-8 bg-white rounded-lg shadow-md mt-10">
@@ -75,7 +76,7 @@ const Register = () => {
               placeholder="Email Address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
               required
             />
           </div>
@@ -93,7 +94,7 @@ const Register = () => {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
               required
             />
           </div>
@@ -111,14 +112,14 @@ const Register = () => {
               placeholder="Confirm Password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
               required
             />
           </div>
 
           <button
             type="submit"
-            className="w-full py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full py-3 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"
           >
             Register
           </button>
@@ -126,7 +127,7 @@ const Register = () => {
 
         <p className="mt-4 text-center text-gray-600">
           Already have an account?{" "}
-          <a href="/login" className="text-indigo-600 hover:underline">
+          <a href="/login" className="text-red-600 hover:underline">
             Login here
           </a>
         </p>

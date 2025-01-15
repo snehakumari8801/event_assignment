@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -38,8 +39,14 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-300">
-      <div className="w-full max-w-sm p-8 bg-white rounded-lg shadow-md">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-300">
+     <Link to="/">
+        <div className=" bg-red-800 text-center pt-2 text-white rounded-xl h-10 
+        w-[380px] ">
+         <span>Go To Dashboard</span>
+        </div>
+      </Link>
+      <div className="w-full max-w-sm p-8 mt-6 bg-white rounded-lg shadow-md">
         <h2 className="text-3xl font-semibold text-center text-gray-700 mb-6">Login</h2>
         {error && <div className="text-red-500 text-center mb-4">{error}</div>}
 
@@ -54,7 +61,7 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email Address"
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
               required
             />
           </div>
@@ -69,14 +76,14 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
               required
             />
           </div>
 
           <button
             type="submit"
-            className="w-full py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full py-3 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"
           >
             Login
           </button>
@@ -84,7 +91,7 @@ const Login = () => {
 
         <p className="mt-4 text-center text-gray-600">
           Don't have an account?{' '}
-          <a href="/register" className="text-indigo-600 hover:underline">
+          <a href="/register" className="text-red-600 hover:underline">
             Register here
           </a>
         </p>

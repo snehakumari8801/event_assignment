@@ -81,7 +81,7 @@ const Dashboard = () => {
           </h1>
           <div className="flex flex-wrap justify-center gap-4 mb-6">
             <Link to="/login">
-              <button className="bg-green-600 text-white px-4 sm:px-6 py-2 rounded-md hover:bg-red-700  focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <button className="bg-green-600 text-white px-4 sm:px-6 py-2 rounded-md hover:bg-green-700  focus:outline-none focus:ring-2 focus:ring-red-500">
                 Login
               </button>
             </Link>
@@ -143,14 +143,14 @@ const Dashboard = () => {
 
                 {/* Edit Button */}
                 {editLoading ? (
-                  <button className="bg-indigo-600 text-white px-4 py-2 rounded-md cursor-not-allowed">
+                  <button className="bg-red-600 text-white px-4 py-2 rounded-md cursor-not-allowed">
                     Editing...
                   </button>
                 ) : (
                   <Link to={`/dashboard/editEvent/${event._id}`}>
                     <button
                       onClick={() => editEventHandler(event._id)}
-                      className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition"
+                      className="bg-black text-white px-4 py-2 rounded-md hover:bg-gray-700 transition"
                     >
                       Edit Details
                     </button>
@@ -160,7 +160,7 @@ const Dashboard = () => {
                 {/* Delete Button */}
                 <button
                   onClick={() => deleteEventHandler(event._id)}
-                  className="bg-indigo-600 ml-6 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition"
+                  className="bg-red-600 ml-6 mt-5 sm:mt-0 text-white px-4 py-2 rounded-md hover:bg-red-700 transition"
                 >
                   Delete
                 </button>

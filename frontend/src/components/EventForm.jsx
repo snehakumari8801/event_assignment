@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { setEventDetails } from "../slices/userSlice";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 const EventForm = () => {
   const [eventData, setEventData] = useState({
@@ -131,10 +132,16 @@ const EventForm = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-300">
+    <div className="flex flex-col justify-center items-center min-h-screen bg-gray-300">
+     <Link to="/">
+        <div className=" bg-red-800 mt-2 text-center pt-2 text-white rounded-xl h-10 
+        w-[380px] ">
+         <span>Go To Dashboard</span>
+        </div>
+      </Link>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-lg p-8 bg-white rounded-lg shadow-lg"
+        className="w-full mt-7 max-w-lg p-8 bg-white rounded-lg shadow-lg"
       >
         <h2 className="text-3xl font-semibold text-center text-gray-700 mb-6">
           {editEvent || eventId ? "Edit Event" : "Create Event"}
@@ -156,7 +163,7 @@ const EventForm = () => {
             value={eventData.name}
             onChange={handleChange}
             placeholder="Event Name"
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
           />
           {errors.name && (
             <span className="text-red-500 text-sm">{errors.name.message}</span>
@@ -178,7 +185,7 @@ const EventForm = () => {
             id="date"
             value={eventData.date}
             onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
           />
           {errors.date && (
             <span className="text-red-500 text-sm">{errors.date.message}</span>
@@ -203,7 +210,7 @@ const EventForm = () => {
             value={eventData.category}
             onChange={handleChange}
             placeholder="Category"
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
           />
           {errors.category && (
             <span className="text-red-500 text-sm">
@@ -224,7 +231,7 @@ const EventForm = () => {
             {...register("image")}
             type="file"
             onChange={handleFileChange}
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
           />
           {eventData.image && (
             <p className="text-sm text-gray-600 mt-2">
@@ -235,7 +242,7 @@ const EventForm = () => {
 
         <button
           type="submit"
-          className="w-full py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="w-full py-3 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-red-500"
         >
           {editEvent ? "Save Changes" : "Create Event"}
         </button>
