@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
+  let API_BASE_URL = "http://localhost:3000/api/v1"
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -17,17 +19,19 @@ const Login = () => {
       return;
     }
 
-    console.log(email,password);
+    //console.log(email,password);
     
 
     try {
-      const response = await axios.post('http://localhost:3000/api/v1/auth/login', 
+      const response = await axios.post(`${API_BASE_URL}/auth/login`, 
       { email, password });
       
-      console.log(response);
+      console.log(response.data.user);
       
       // Save the JWT token in localStorage or global state
       localStorage.setItem('token', JSON.stringify(response.data.token));
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+
 
       // Redirect to dashboard after successful login
       navigate('/');

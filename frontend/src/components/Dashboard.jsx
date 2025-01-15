@@ -10,6 +10,8 @@ import {
 } from "../slices/userSlice";
 
 const Dashboard = () => {
+  let API_BASE_URL = "http://localhost:3000/api/v1"
+
   const [events, setEvents] = useState([]);
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -18,12 +20,14 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const dataOfEvent = ["All", "javascript", "python", "c++", "java"];
 
-  const { event } = useSelector((state) => state.auth);
+  const { event ,user,token} = useSelector((state) => state.auth);
+  //console.log("user is " , user);
+  
 
   const fetchEvents = () => {
     setLoading(true); // Start loading for fetching events
     axios
-      .get("http://localhost:3000/api/v1/events/allevents")
+      .get(`${API_BASE_URL}/events/allevents`)
       .then((response) => {
         setEvents(response.data);
         dispatch(setEvent([...response.data]));
@@ -71,6 +75,13 @@ const Dashboard = () => {
     fetchEvents();
   };
 
+  const logout = async()=>{
+     localStorage.removeItem('user');
+     localStorage.removeItem('token');
+     console.log(logout , token , user);
+     alert("Logout successfully!")
+  }
+
   return (
     <div className="min-h-screen bg-gray-400 py-8 px-4 sm:px-6 md:px-12 lg:px-20">
       <div className="max-w-4xl mx-auto bg-gray-300 p-6 rounded-lg shadow-md">
@@ -93,6 +104,14 @@ const Dashboard = () => {
             <Link to="/event/create">
               <button className="bg-green-600 text-white px-4 sm:px-6 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">
                 Create an event
+              </button>
+            </Link>
+
+            <Link to="/">
+              <button 
+              onClick={logout}
+              className="bg-red-400 text-white px-4 sm:px-6 py-2 rounded-md hover:bg-red-700  focus:outline-none focus:ring-2 focus:ring-red-500">
+                Logout
               </button>
             </Link>
           </div>

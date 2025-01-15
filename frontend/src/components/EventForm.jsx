@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
@@ -5,8 +6,10 @@ import { setEventDetails } from "../slices/userSlice";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import Login from "../components/Login"
 
 const EventForm = () => {
+  let API_BASE_URL = "http://localhost:3000/api/v1"
   const [eventData, setEventData] = useState({
     name: "",
     date: "",
@@ -14,7 +17,7 @@ const EventForm = () => {
     image: null,
   });
 
-  const { eventDetails, editEvent, event, token, editEventId } = useSelector(
+  const { eventDetails, editEvent, event, token, editEventId ,user} = useSelector(
     (state) => state.auth
   );
   const { eventId } = useParams();
@@ -51,7 +54,7 @@ const EventForm = () => {
       const fetchEvent = async () => {
         try {
           const response = await axios.get(
-            `http://localhost:3000/api/v1/events/${eventId}`
+            `${API_BASE_URL}/events/${eventId}`
           );
           const fetchedEvent = response.data;
 
@@ -80,6 +83,16 @@ const EventForm = () => {
     setValue(name, value);
   };
 
+
+  if (!user) {
+    return (
+      <div className="text-center mt-5 -mb-5">
+        <p className="text-lg font-semibold text-black">Please login first to continue.</p>
+       <Login/>
+      </div>
+    );
+  }
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setEventData((prev) => ({ ...prev, image: file }));
@@ -99,12 +112,12 @@ const EventForm = () => {
       let response;
       if (editEvent) {
         response = await axios.put(
-          `http://localhost:3000/api/v1/events/edit/${editEventId}`,
+        `${API_BASE_URL}/events/edit/${editEventId}`,
           eventData
         );
       } else {
         response = await axios.post(
-          "http://localhost:3000/api/v1/events/create",
+          `${API_BASE_URL}/events/create`,
           eventData
         );
       }
@@ -122,7 +135,7 @@ const EventForm = () => {
         "Are you sure you want to delete this event?"
       );
       if (confirmed) {
-        await axios.delete(`http://localhost:3000/api/v1/events/${eventId}`);
+        await axios.delete(`${API_BASE_URL}/events/${eventId}`);
         dispatch(setEventDetails({}));
         navigate("/"); // Redirect after deletion
       }
@@ -130,6 +143,9 @@ const EventForm = () => {
       console.error("Error deleting event:", error);
     }
   };
+
+  
+
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-gray-300">
@@ -261,4 +277,11 @@ const EventForm = () => {
   );
 };
 
-export default EventForm;
+
+
+
+
+
+
+
+export default EventForm
