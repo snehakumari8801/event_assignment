@@ -1,9 +1,7 @@
-
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
-import { setEventDetails,setEvent } from "../slices/userSlice"; 
+import { setEventDetails } from "../slices/userSlice";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -21,7 +19,7 @@ const EventForm = () => {
   const { eventId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  console.log(token, editEventId);
+  //console.log("edit Id", editEventId);
 
   const {
     register,
@@ -30,19 +28,24 @@ const EventForm = () => {
     formState: { errors },
   } = useForm();
 
+  let eventDetail = event.find((event) => event._id === editEventId);
+
   useEffect(() => {
     if (editEvent) {
-      setEventData({
-        name: eventDetails.name,
-        date: eventDetails.date,
-        category: eventDetails.category,
-        image: eventDetails.image,
-      });
+      const eventDetail = event.find((event) => event._id === editEventId);
+      if (eventDetail) {
+        setEventData({
+          name: eventDetail.name,
+          date: eventDetail.date,
+          category: eventDetail.category,
+          image: eventDetail.image,
+        });
 
-      setValue("name", eventDetails.name);
-      setValue("date", eventDetails.date);
-      setValue("category", eventDetails.category);
-      setValue("image", eventDetails.image);
+        setValue("name", eventDetail.name);
+        setValue("date", eventDetail.date);
+        setValue("category", eventDetail.category);
+        setValue("image", eventDetail.image);
+      }
     } else if (eventId) {
       const fetchEvent = async () => {
         try {
@@ -68,10 +71,7 @@ const EventForm = () => {
 
       fetchEvent();
     }
-  }, [eventId, editEvent, setValue, eventDetails]);
-
-  console.log(event, eventId, editEventId, editEvent, setValue, eventDetails);
-  
+  }, [eventId, editEvent, setValue, editEventId, event]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -96,11 +96,10 @@ const EventForm = () => {
 
     try {
       let response;
-      if (editEvent || eventId) {
-        const idToEdit = editEvent ? event._id : eventId;
+      if (editEvent) {
         response = await axios.put(
-          `http://localhost:3000/api/v1/events/edit/${idToEdit}`,
-           eventId
+          `http://localhost:3000/api/v1/events/edit/${editEventId}`,
+          eventData
         );
       } else {
         response = await axios.post(
@@ -110,22 +109,24 @@ const EventForm = () => {
       }
 
       dispatch(setEventDetails(response?.data?.event));
-      navigate("/");  
+      navigate("/");
     } catch (error) {
-      console.error(error);
+      console.error("Error submitting form:", error);
     }
   };
 
   const handleDelete = async () => {
     try {
-      const confirmed = window.confirm("Are you sure you want to delete this event?");
+      const confirmed = window.confirm(
+        "Are you sure you want to delete this event?"
+      );
       if (confirmed) {
         await axios.delete(`http://localhost:3000/api/v1/events/${eventId}`);
         dispatch(setEventDetails({}));
-        navigate("/");  
+        navigate("/"); // Redirect after deletion
       }
     } catch (error) {
-      console.error(error);
+      console.error("Error deleting event:", error);
     }
   };
 
@@ -141,7 +142,10 @@ const EventForm = () => {
 
         {/* Event Name */}
         <div className="mb-4">
-          <label htmlFor="name" className="block text-gray-600 font-medium mb-2">
+          <label
+            htmlFor="name"
+            className="block text-gray-600 font-medium mb-2"
+          >
             Event Name
           </label>
           <input
@@ -161,7 +165,10 @@ const EventForm = () => {
 
         {/* Event Date */}
         <div className="mb-4">
-          <label htmlFor="date" className="block text-gray-600 font-medium mb-2">
+          <label
+            htmlFor="date"
+            className="block text-gray-600 font-medium mb-2"
+          >
             Event Date
           </label>
           <input
@@ -187,7 +194,9 @@ const EventForm = () => {
             Event Category
           </label>
           <input
-            {...register("category", { required: "Event category is required" })}
+            {...register("category", {
+              required: "Event category is required",
+            })}
             type="text"
             name="category"
             id="category"
@@ -197,7 +206,9 @@ const EventForm = () => {
             className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
           {errors.category && (
-            <span className="text-red-500 text-sm">{errors.category.message}</span>
+            <span className="text-red-500 text-sm">
+              {errors.category.message}
+            </span>
           )}
         </div>
 

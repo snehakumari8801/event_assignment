@@ -1,22 +1,21 @@
 // routes/events.js
-const express = require('express');
-const Event = require('../../backend/models/Event');
-
+const express = require("express");
+const Event = require("../../backend/models/Event");
 
 const router = express.Router();
 
 // Fetch all events
-router.get('/allevents', async (req, res) => {
+router.get("/allevents", async (req, res) => {
   try {
     const events = await Event.find();
     res.json(events);
   } catch (error) {
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: "Server error" });
   }
 });
 
 // Create a new event
-router.post('/create', async (req, res) => {
+router.post("/create", async (req, res) => {
   const data = req.body;
 
   console.log(data);
@@ -27,7 +26,7 @@ router.post('/create', async (req, res) => {
   const image = data.image;
 
   // Basic validation: Ensure all fields are provided
-  if (!name || !date || !category ) {
+  if (!name || !date || !category) {
     return res.status(400).json({
       success: false,
       message: "All fields (name, date, category, image) are required.",
@@ -47,9 +46,8 @@ router.post('/create', async (req, res) => {
     // Create a new event document
     const newEvent = await Event.create({
       name,
-      date: parsedDate,  // Use the parsed date to ensure it's a valid Date object
+      date: parsedDate, // Use the parsed date to ensure it's a valid Date object
       category,
-
     });
 
     // Send the response with the newly created event
@@ -68,66 +66,57 @@ router.post('/create', async (req, res) => {
   }
 });
 
-// Get a specific event by ID
-router.put('/edit/:id', async (req, res) => {
-  const {data} = req.body;
-  //console.log(data);
+//update event
+router.put("/edit/:id", async (req, res) => {
+  const { name, date, category } = req.body;
+  const eventId = req.params.id;
 
-  const { eventId } = req.params;
+  console.log("Event ID:", eventId);
+  console.log("Received data:", { name, date, category });
 
-  console.log(eventId);
-  
-
-  if(!data){
-   console.log("data not found")
+  if (!name || !date || !category) {
+    return res.status(400).json({ message: "Missing required fields" });
   }
 
   try {
-    //const event = await Event.findById(req.params.id);
-    const updateEvent = await Event.findByIdAndUpdate(req.params.id,
-     { name:data.name,
-      date:data.date,
-      category:data.category,
-      image:data.image}
-    )
+    const updatedData = {
+      name,
+      date,
+      category,
+    };
+
+    const updateEvent = await Event.findByIdAndUpdate(eventId, updatedData, {
+      new: true,
+    });
+
     if (!updateEvent) {
-      return res.status(404).json({ message: 'Event not found' });
+      return res.status(404).json({ message: "Event not found" });
     }
+
     res.json(updateEvent);
   } catch (error) {
-    res.status(500).json({ message: 'Server error' });
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
   }
 });
 
-router.delete('/delete' , async(req,res) =>{
+//delete event
+router.delete("/delete", async (req, res) => {
   let id = req.body;
 
-  try{
+  try {
     const deleteEvent = await Event.deleteOne(id);
     return res.status(400).json({
-      success:true,
-      data:"deleted Successfully"
-     })
-  }catch(error){
+      success: true,
+      data: "deleted Successfully",
+    });
+  } catch (error) {
     console.log(error);
-   return res.status(400).json({
-    success:false,
-    message:error.message
-   })
+    return res.status(400).json({
+      success: false,
+      message: error.message,
+    });
   }
-
-  
-})
+});
 
 module.exports = router;
-
-
-
-
-
-
-
-
-
-
-

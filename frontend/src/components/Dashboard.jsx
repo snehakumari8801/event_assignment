@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import {
   setEditEventId,
   setEventDetails,
   setEditEvent,
+  setEvent,
 } from "../slices/userSlice";
 
 const Dashboard = () => {
@@ -14,7 +15,10 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const [editLoading, setEditLoading] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const dataOfEvent = ["All", "javascript", "python", "c++", "java"];
+
+  const { event } = useSelector((state) => state.auth);
 
   const fetchEvents = () => {
     setLoading(true); // Start loading for fetching events
@@ -22,6 +26,7 @@ const Dashboard = () => {
       .get("http://localhost:3000/api/v1/events/allevents")
       .then((response) => {
         setEvents(response.data);
+        dispatch(setEvent([...response.data]));
         setFilteredEvents(response.data); // Show all events initially
         setLoading(false); // Stop loading when data is fetched
       })
@@ -36,23 +41,18 @@ const Dashboard = () => {
   }, []);
 
   const editEventHandler = async (id) => {
-    setEditLoading(true);
+    // setEditLoading(true);
+    dispatch(setEditEvent(true));
     dispatch(setEditEventId(id));
-    try {
-      const response = await axios.get(
-        `http://localhost:3000/api/v1/events/${id}`
-      );
-      dispatch(setEventDetails(response.data));
-      dispatch(setEditEvent(true));
-    } catch (error) {
-      console.error("Error fetching event details:", error);
-    }
-    setEditLoading(false);
+
+    navigate(`/dashboard/editEvent/${id}`);
   };
+
+  //console.log("event ", event);
 
   const filterByCategory = (category) => {
     if (category === "All") {
-      setFilteredEvents(events); 
+      setFilteredEvents(events);
     } else {
       const filtered = events.filter((event) => event.category === category);
       setFilteredEvents(filtered);
