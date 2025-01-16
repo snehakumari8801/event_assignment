@@ -9,7 +9,9 @@ import { Link } from "react-router-dom";
 import Login from "../components/Login"
 
 const EventForm = () => {
-  let API_BASE_URL = "http://localhost:3000/api/v1"
+ // let API_BASE_URL = "http://localhost:3000/api/v1"
+ let API_BASE_URL = 'https://event-assignment-backend.onrender.com'
+
   const [eventData, setEventData] = useState({
     name: "",
     date: "",
@@ -24,6 +26,8 @@ const EventForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   //console.log("edit Id", editEventId);
+  console.log('user ',user);
+
 
   const {
     register,
@@ -84,14 +88,14 @@ const EventForm = () => {
   };
 
 
-  if (!user) {
-    return (
-      <div className="text-center mt-5 -mb-5">
-        <p className="text-lg font-semibold text-black">Please login first to continue.</p>
-       <Login/>
-      </div>
-    );
-  }
+  // if (!user) {
+  //   return (
+  //     <div className="text-center mt-5 -mb-5">
+  //       <p className="text-lg font-semibold text-black">Please login first to continue.</p>
+  //      <Login/>
+  //     </div>
+  //   );
+  // }
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -144,6 +148,7 @@ const EventForm = () => {
     }
   };
 
+  
   
 
 

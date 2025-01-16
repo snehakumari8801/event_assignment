@@ -11,7 +11,9 @@ const Register = () => {
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
-  let API_BASE_URL = "http://localhost:3000/api/v1"
+  //let API_BASE_URL = "http://localhost:3000/api/v1"
+  let API_BASE_URL = 'https://event-assignment-backend.onrender.com'
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,12 +48,12 @@ const Register = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-300">
-      <Link to="/">
+      {/* <Link to="/">
         <div className=" bg-red-800 text-center pt-2 text-white rounded-xl h-10 
         w-[380px] ">
          <span>Go To Dashboard</span>
         </div>
-      </Link>
+      </Link> */}
       <div className="w-full max-w-sm p-8 bg-white rounded-lg shadow-md mt-10">
         <h2 className="text-3xl font-semibold text-center text-gray-700 mb-6">
           Register
@@ -127,7 +129,7 @@ const Register = () => {
 
         <p className="mt-4 text-center text-gray-600">
           Already have an account?{" "}
-          <a href="/login" className="text-red-600 hover:underline">
+          <a href="/" className="text-red-600 hover:underline">
             Login here
           </a>
         </p>

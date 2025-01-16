@@ -10,7 +10,8 @@ import {
 } from "../slices/userSlice";
 
 const Dashboard = () => {
-  let API_BASE_URL = "http://localhost:3000/api/v1"
+  // let API_BASE_URL = "http://localhost:3000/api/v1"
+  let API_BASE_URL = 'https://event-assignment-backend.onrender.com'
 
   const [events, setEvents] = useState([]);
   const [filteredEvents, setFilteredEvents] = useState([]);
@@ -49,7 +50,7 @@ const Dashboard = () => {
     dispatch(setEditEvent(true));
     dispatch(setEditEventId(id));
 
-    navigate(`/dashboard/editEvent/${id}`);
+    //navigate(`/dashboard/editEvent/${id}`);
   };
 
   //console.log("event ", event);
@@ -66,7 +67,7 @@ const Dashboard = () => {
   const deleteEventHandler = async (id) => {
     setLoading(true);
     try {
-      await axios.delete(`http://localhost:3000/api/v1/events/delete`, id);
+      await axios.delete(`${API_BASE_URL}/events/delete`, id);
       fetchEvents();
     } catch (error) {
       console.log(error);
@@ -78,7 +79,7 @@ const Dashboard = () => {
   const logout = async()=>{
      localStorage.removeItem('user');
      localStorage.removeItem('token');
-     console.log(logout , token , user);
+     console.log( token , user);
      alert("Logout successfully!")
   }
 
@@ -91,7 +92,7 @@ const Dashboard = () => {
             Upcoming Events
           </h1>
           <div className="flex flex-wrap justify-center gap-4 mb-6">
-            <Link to="/login">
+            <Link to="/">
               <button className="bg-green-600 text-white px-4 sm:px-6 py-2 rounded-md hover:bg-green-700  focus:outline-none focus:ring-2 focus:ring-red-500">
                 Login
               </button>

@@ -4,7 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
-  let API_BASE_URL = "http://localhost:3000/api/v1"
+ // let API_BASE_URL = "http://localhost:3000/api/v1"
+ let API_BASE_URL = 'https://event-assignment-backend.onrender.com'
+
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -34,7 +36,7 @@ const Login = () => {
 
 
       // Redirect to dashboard after successful login
-      navigate('/');
+      navigate('/dashboard');
     } catch (err) {
       console.log(err);
       
@@ -44,12 +46,12 @@ const Login = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-300">
-     <Link to="/">
+     {/* <Link to="/">
         <div className=" bg-red-800 text-center pt-2 text-white rounded-xl h-10 
         w-[380px] ">
          <span>Go To Dashboard</span>
         </div>
-      </Link>
+      </Link> */}
       <div className="w-full max-w-sm p-8 mt-6 bg-white rounded-lg shadow-md">
         <h2 className="text-3xl font-semibold text-center text-gray-700 mb-6">Login</h2>
         {error && <div className="text-red-500 text-center mb-4">{error}</div>}
