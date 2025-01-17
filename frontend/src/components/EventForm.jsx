@@ -121,7 +121,7 @@ const EventForm = () => {
         );
       } else {
         response = await axios.post(
-          `${API_BASE_URL}/api/v1/api/v1/events/create`,
+          `${API_BASE_URL}/api/v1/events/create`,
           eventData
         );
       }

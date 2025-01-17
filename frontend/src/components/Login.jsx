@@ -12,6 +12,10 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const [loading,setLoading] = useState(false);
+
+
+ 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +26,7 @@ const Login = () => {
     }
 
     //console.log(email,password);
-    
+    setLoading(true);
 
     try {
       const response = await axios.post(`${API_BASE_URL}/api/v1/auth/login`, 
@@ -37,6 +41,7 @@ const Login = () => {
 
       // Redirect to dashboard after successful login
       navigate('/dashboard');
+      setLoading(false);
     } catch (err) {
       console.log(err);
       
@@ -94,6 +99,11 @@ const Login = () => {
             Login
           </button>
         </form>
+
+        {loading && (
+          <div className="text-center text-gray-500">Loading...</div>
+        )}
+
 
         <p className="mt-4 text-center text-gray-600">
           Don't have an account?{' '}

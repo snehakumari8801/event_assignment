@@ -28,7 +28,7 @@ const Dashboard = () => {
   const fetchEvents = () => {
     setLoading(true); // Start loading for fetching events
     axios
-      .get(`${API_BASE_URL}/events/allevents`)
+      .get(`${API_BASE_URL}/api/v1/events/allevents`)
       .then((response) => {
         setEvents(response.data);
         dispatch(setEvent([...response.data]));
