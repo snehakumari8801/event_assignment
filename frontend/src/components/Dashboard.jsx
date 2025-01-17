@@ -67,7 +67,7 @@ const Dashboard = () => {
   const deleteEventHandler = async (id) => {
     setLoading(true);
     try {
-      await axios.delete(`${API_BASE_URL}/events/delete`, id);
+      await axios.delete(`${API_BASE_URL}/api/v1/events/delete`, id);
       fetchEvents();
     } catch (error) {
       console.log(error);

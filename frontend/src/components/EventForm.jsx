@@ -58,7 +58,7 @@ const EventForm = () => {
       const fetchEvent = async () => {
         try {
           const response = await axios.get(
-            `${API_BASE_URL}/events/${eventId}`
+            `${API_BASE_URL}/api/v1/events/${eventId}`
           );
           const fetchedEvent = response.data;
 
@@ -116,12 +116,12 @@ const EventForm = () => {
       let response;
       if (editEvent) {
         response = await axios.put(
-        `${API_BASE_URL}/events/edit/${editEventId}`,
+        `${API_BASE_URL}/api/v1/events/edit/${editEventId}`,
           eventData
         );
       } else {
         response = await axios.post(
-          `${API_BASE_URL}/events/create`,
+          `${API_BASE_URL}/api/v1/api/v1/events/create`,
           eventData
         );
       }
