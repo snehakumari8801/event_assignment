@@ -39,7 +39,7 @@ const Register = () => {
       setSuccess("Registration successful! Please log in.");
       setError("");
 
-      setTimeout(() => navigate("/login"), 2000);
+      setTimeout(() => navigate("/"), 2000);
     } catch (err) {
       setError(err.response?.data?.message || "Error registering user");
       setSuccess("");
