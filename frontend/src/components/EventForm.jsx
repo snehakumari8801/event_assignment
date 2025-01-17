@@ -127,7 +127,7 @@ const EventForm = () => {
       }
 
       dispatch(setEventDetails(response?.data?.event));
-      navigate("/");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Error submitting form:", error);
     }
@@ -141,7 +141,7 @@ const EventForm = () => {
       if (confirmed) {
         await axios.delete(`${API_BASE_URL}/events/${eventId}`);
         dispatch(setEventDetails({}));
-        navigate("/"); // Redirect after deletion
+        navigate("/dashboard"); // Redirect after deletion
       }
     } catch (error) {
       console.error("Error deleting event:", error);
