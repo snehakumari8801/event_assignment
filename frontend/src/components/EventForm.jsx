@@ -154,7 +154,7 @@ const EventForm = () => {
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-gray-300">
-     <Link to="/">
+     <Link to="/dashboard">
         <div className=" bg-red-800 mt-2 text-center pt-2 text-white rounded-xl h-10 
         w-[380px] ">
          <span>Go To Dashboard</span>
