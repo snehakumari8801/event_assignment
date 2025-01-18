@@ -19,7 +19,7 @@ const Dashboard = () => {
   const [editLoading, setEditLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const dataOfEvent = ["All", "javascript", "python", "c++", "java"];
+  const dataOfEvent = ["All", "Javascript", "Python", "C++", "Java"];
 
   const { event ,user,token} = useSelector((state) => state.auth);
   //console.log("user is " , user);
