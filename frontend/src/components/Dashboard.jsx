@@ -69,10 +69,10 @@ const Dashboard = () => {
     try {
       await axios.delete(`${API_BASE_URL}/api/v1/events/delete`, id);
       fetchEvents();
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
-    setLoading(false);
     fetchEvents();
   };
 
