@@ -209,13 +209,14 @@ const EventForm = () => {
 
         {/* Event Category */}
         <div className="mb-4">
-        <span>JavaScript/Python/Java/C++</span>
           <label
             htmlFor="category"
             className="block text-gray-600 font-medium mb-2"
           >
             Event Category
           </label>
+          <span  className="block text-gray-600 font-medium mb-2">JavaScript/Python/Java/C++</span>
+
           <input
             {...register("category", {
               required: "Event category is required",
