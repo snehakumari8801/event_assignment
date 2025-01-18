@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
@@ -6,11 +5,11 @@ import { setEventDetails } from "../slices/userSlice";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import Login from "../components/Login"
+import Login from "../components/Login";
 
 const EventForm = () => {
- // let API_BASE_URL = "http://localhost:3000/api/v1"
- let API_BASE_URL = 'https://event-assignment-backend.onrender.com'
+  // let API_BASE_URL = "http://localhost:3000/api/v1"
+  let API_BASE_URL = "https://event-assignment-backend.onrender.com";
 
   const [eventData, setEventData] = useState({
     name: "",
@@ -19,15 +18,13 @@ const EventForm = () => {
     image: null,
   });
 
-  const { eventDetails, editEvent, event, token, editEventId ,user} = useSelector(
-    (state) => state.auth
-  );
+  const { eventDetails, editEvent, event, token, editEventId, user } =
+    useSelector((state) => state.auth);
   const { eventId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   //console.log("edit Id", editEventId);
-  console.log('user ',user);
-
+  console.log("user ", user);
 
   const {
     register,
@@ -87,7 +84,6 @@ const EventForm = () => {
     setValue(name, value);
   };
 
-
   // if (!user) {
   //   return (
   //     <div className="text-center mt-5 -mb-5">
@@ -116,7 +112,7 @@ const EventForm = () => {
       let response;
       if (editEvent) {
         response = await axios.put(
-        `${API_BASE_URL}/api/v1/events/edit/${editEventId}`,
+          `${API_BASE_URL}/api/v1/events/edit/${editEventId}`,
           eventData
         );
       } else {
@@ -148,16 +144,14 @@ const EventForm = () => {
     }
   };
 
-  
-  
-
-
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-gray-300">
-     <Link to="/dashboard">
-        <div className=" bg-red-800 mt-2 text-center pt-2 text-white rounded-xl h-10 
-        w-[380px] ">
-         <span>Go To Dashboard</span>
+      <Link to="/dashboard">
+        <div
+          className=" bg-red-800 mt-2 text-center pt-2 text-white rounded-xl h-10 
+        w-[380px] "
+        >
+          <span>Go To Dashboard</span>
         </div>
       </Link>
       <form
@@ -214,7 +208,7 @@ const EventForm = () => {
         </div>
 
         {/* Event Category */}
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label
             htmlFor="category"
             className="block text-gray-600 font-medium mb-2"
@@ -233,6 +227,36 @@ const EventForm = () => {
             placeholder="Category"
             className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
           />
+          {errors.category && (
+            <span className="text-red-500 text-sm">
+              {errors.category.message}
+            </span>
+          )}
+        </div> */}
+
+        <div className="mb-4">
+          <label
+            htmlFor="category"
+            className="block text-gray-600 font-medium mb-2"
+          >
+            Event Category
+          </label>
+          <select
+            {...register("category", {
+              required: "Event category is required",
+            })}
+            name="category"
+            id="category"
+            value={eventData.category}
+            onChange={handleChange}
+            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+          >
+            <option value="">Select Category</option>
+            <option value="javascript">JavaScript</option>
+            <option value="python">Python</option>
+            <option value="c++">C++</option>
+            <option value="java">Java</option>
+          </select>
           {errors.category && (
             <span className="text-red-500 text-sm">
               {errors.category.message}
@@ -282,11 +306,4 @@ const EventForm = () => {
   );
 };
 
-
-
-
-
-
-
-
-export default EventForm
+export default EventForm;
