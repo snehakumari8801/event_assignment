@@ -208,7 +208,8 @@ const EventForm = () => {
         </div>
 
         {/* Event Category */}
-        {/* <div className="mb-4">
+        <div className="mb-4">
+        <span>JavaScript/Python/Java/C++</span>
           <label
             htmlFor="category"
             className="block text-gray-600 font-medium mb-2"
@@ -232,8 +233,8 @@ const EventForm = () => {
               {errors.category.message}
             </span>
           )}
-        </div> */}
-
+        </div>
+{/* 
         <div className="mb-4">
           <label
             htmlFor="category"
@@ -262,7 +263,7 @@ const EventForm = () => {
               {errors.category.message}
             </span>
           )}
-        </div>
+        </div> */}
 
         {/* Event Image */}
         <div className="mb-6">
