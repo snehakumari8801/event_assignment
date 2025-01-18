@@ -252,10 +252,10 @@ const EventForm = () => {
             className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
           >
             <option value="">Select Category</option>
-            <option value="javascript">JavaScript</option>
-            <option value="python">Python</option>
-            <option value="c++">C++</option>
-            <option value="java">Java</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="Python">Python</option>
+            <option value="C++">C++</option>
+            <option value="Java">Java</option>
           </select>
           {errors.category && (
             <span className="text-red-500 text-sm">
